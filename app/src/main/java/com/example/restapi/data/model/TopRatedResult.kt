@@ -1,6 +1,6 @@
 package com.example.restapi.data.model
 
-data class Movie(
+data class TopRatedResult(
     val page: Int,
     val results: List<MovieResult>,
     val total_pages: Int,

@@ -1,6 +1,6 @@
 package com.example.restapi.data.model
 
-data class Result(
+data class MovieResult(
     val adult: Boolean,
     val backdrop_path: String,
     val first_air_date: String,
