@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface Service {
+interface RetrofitService {
 
     @GET("discover/movie?sort_by=popularity.desc")
     suspend fun listMovies(
@@ -24,11 +24,11 @@ interface Service {
 
 
     object ServiceFactory {
-        fun makeService(): Service {
+        fun makeService(): RetrofitService {
             return Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .build().create(Service::class.java)
+                .build().create(RetrofitService::class.java)
         }
     }
 

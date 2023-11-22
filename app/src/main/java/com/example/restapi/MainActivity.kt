@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.restapi.data.Service
+import com.example.restapi.data.RetrofitService
 import com.example.restapi.data.model.TopRatedResult
 import com.example.restapi.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     lateinit var textView: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -23,29 +22,31 @@ class MainActivity : AppCompatActivity() {
 
 //        initComponets()
 
-        var service = getData()
+     getData()
 
-//        chageText(service)
+
 
 
     }
 
     private fun chageText(service: TopRatedResult) {
+        var textNames = ""
         for (itemResults in service.results) {
-
-            textView.setText(itemResults.name + "\n ")
+        textNames  +=    itemResults.name + "\n "
 
         }
+        binding.textView.setText(textNames)
+
     }
 
-    private fun getData(): TopRatedResult {
-        val service = Service.ServiceFactory.makeService()
+    private fun getData() {
+      val  service = RetrofitService.ServiceFactory.makeService()
         lateinit var topRatedResult: TopRatedResult
         lifecycleScope.launch {
             try {
                 val topRatedResult = service.getTopRated("978c086010f26d51cfdde7c12faa6d23")
                 println(topRatedResult)
-
+                chageText(topRatedResult)
             } catch (e: Exception) {
                 e.printStackTrace()
 
@@ -58,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        return topRatedResult
     }
 
     private fun initComponets() {
